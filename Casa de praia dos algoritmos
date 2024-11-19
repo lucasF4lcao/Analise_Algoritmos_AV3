@@ -1,0 +1,60 @@
+import java.util.*;
+
+class ArquivoPDF {
+    String nome;
+    int paginas;
+    int peso;
+
+    public ArquivoPDF(String nome, int paginas, int peso) {
+        this.nome = nome;
+        this.paginas = paginas;
+        this.peso = peso;
+    }
+
+    // Calcular a razão de páginas por MB
+    public double razaoPaginasPorMB() {
+        return (double) paginas / peso;
+    }
+}
+
+public class CasaDePraia {
+    
+    public static void escolherArquivosPendrive(int capacidade, List<ArquivoPDF> arquivos) {
+        // Ordenar arquivos por razão de páginas por MB (decrescente)
+        Collections.sort(arquivos, (a, b) -> Double.compare(b.razaoPaginasPorMB(), a.razaoPaginasPorMB()));
+        
+        int capacidadeAtual = 0;
+        List<ArquivoPDF> arquivosSelecionados = new ArrayList<>();
+
+        // Adicionar arquivos ao pendrive até atingir a capacidade
+        for (ArquivoPDF arquivo : arquivos) {
+            if (capacidadeAtual + arquivo.peso <= capacidade) {
+                capacidadeAtual += arquivo.peso;
+                arquivosSelecionados.add(arquivo);
+                System.out.println("Adicionando: " + arquivo.nome);
+            } else {
+                break;
+            }
+        }
+
+        // Exibir os arquivos escolhidos
+        System.out.println("\nArquivos selecionados para o pendrive:");
+        for (ArquivoPDF arquivo : arquivosSelecionados) {
+            System.out.println(arquivo.nome);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Exemplo de arquivos PDF
+        List<ArquivoPDF> arquivos = new ArrayList<>();
+        arquivos.add(new ArquivoPDF("Algoritmos 101", 300, 10));
+        arquivos.add(new ArquivoPDF("Estruturas de Dados", 500, 20));
+        arquivos.add(new ArquivoPDF("Teoria da Computação", 200, 5));
+        arquivos.add(new ArquivoPDF("Análise de Algoritmos", 400, 15));
+        arquivos.add(new ArquivoPDF("Redes Neurais", 150, 8));
+
+        int capacidadePendrive = 30; // Capacidade do pendrive em MB
+
+        escolherArquivosPendrive(capacidadePendrive, arquivos);
+    }
+}
