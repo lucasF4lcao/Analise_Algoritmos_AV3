@@ -1,0 +1,63 @@
+Algoritmo "EscolherArquivosPendrive"
+
+    // Definindo a estrutura do arquivo
+    tipo Arquivo
+        cadeia nome
+        inteiro paginas
+        inteiro peso
+        real razao
+    fimTipo
+
+    // Função principal
+    inicio
+        // Leitura da capacidade do pendrive
+        inteiro capacidade
+        escreva("Digite a capacidade do pendrive em MB: ")
+        leia(capacidade)
+        
+        // Definindo a lista de arquivos (exemplo)
+        lista<Arquivo> arquivos
+        
+        // Exemplo de arquivos
+        Arquivo arquivo1 <- "Algoritmos 101", 300, 10
+        Arquivo arquivo2 <- "Estruturas de Dados", 500, 20
+        Arquivo arquivo3 <- "Teoria da Computação", 200, 5
+        Arquivo arquivo4 <- "Análise de Algoritmos", 400, 15
+        Arquivo arquivo5 <- "Redes Neurais", 150, 8
+        
+        // Adicionar os arquivos na lista
+        adicione(arquivos, arquivo1)
+        adicione(arquivos, arquivo2)
+        adicione(arquivos, arquivo3)
+        adicione(arquivos, arquivo4)
+        adicione(arquivos, arquivo5)
+
+        // Passo 1: Calcular a razão de páginas por MB e ordenar os arquivos
+        para cada arquivo em arquivos faca
+            arquivo.razao <- arquivo.paginas / arquivo.peso
+        fimPara
+
+        // Ordenar os arquivos pela razão de páginas por MB (decrescente)
+        ordenar(arquivos, por arquivo.razao, ordem decrescente)
+
+        // Passo 2: Selecionar arquivos até a capacidade do pendrive
+        inteiro capacidadeAtual <- 0
+        lista<Arquivo> arquivosSelecionados
+
+        para cada arquivo em arquivos faca
+            se capacidadeAtual + arquivo.peso <= capacidade então
+                capacidadeAtual <- capacidadeAtual + arquivo.peso
+                adicione(arquivosSelecionados, arquivo)
+                escreva("Adicionando: ", arquivo.nome, "\n")
+            senao
+                pare
+            fimSe
+        fimPara
+
+        // Passo 3: Mostrar os arquivos escolhidos
+        escreva("\nArquivos selecionados para o pendrive:\n")
+        para cada arquivo em arquivosSelecionados faca
+            escreva(arquivo.nome, "\n")
+        fimPara
+
+    fimAlgoritmo
