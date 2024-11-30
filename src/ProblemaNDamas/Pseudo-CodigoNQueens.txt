@@ -1,0 +1,45 @@
+procedimento eSeguro(tabuleiro, linha, coluna, N)
+1.     para i de 0 até coluna - 1
+2.         se tabuleiro[linha][i] == 1 então
+3.             retornar falso
+4.         fim-se
+5.     fim-para
+6.     
+7.     i := linha, j := coluna
+8.     enquanto i >= 0 e j >= 0
+9.         se tabuleiro[i][j] == 1 então
+10.            retornar falso
+11.        fim-se
+12.        i := i - 1
+13.        j := j - 1
+14.    fim-enquanto
+15.    
+16.    i := linha, j := coluna
+17.    enquanto i < N e j >= 0
+18.        se tabuleiro[i][j] == 1 então
+19.            retornar falso
+20.        fim-se
+21.        i := i + 1
+22.        j := j - 1
+23.    fim-enquanto
+24.    
+25.    retornar verdadeiro
+fim-procedimento
+
+procedimento resolverNDamas(tabuleiro, coluna, N)
+1.     se coluna >= N então
+2.         imprimirTabuleiro(tabuleiro, N)
+3.         retornar verdadeiro
+4.     fim-se
+5.     
+6.     soluçãoEncontrada := falso
+7.     para linha de 0 até N - 1
+8.         se éSeguro(tabuleiro, linha, coluna, N) então
+9.             tabuleiro[linha][coluna] := 1
+10.            soluçãoEncontrada := resolverNDamas(tabuleiro, coluna + 1, N) ou soluçãoEncontrada
+11.            tabuleiro[linha][coluna] := 0
+12.        fim-se
+13.    fim-para
+14.    
+15.    retornar soluçãoEncontrada
+fim-procedimento

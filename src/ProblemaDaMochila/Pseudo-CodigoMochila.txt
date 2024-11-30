@@ -1,0 +1,29 @@
+procedimento resolverMochila(capacidade, objetos)
+1.    n := tamanho de objetos
+2.    criar matriz dp[n+1][capacidade+1] e inicializar com zeros
+3.    para i de 1 até n faça
+4.        obj := objetos[i-1]
+5.        para w de 0 até capacidade faça
+6.            se obj.peso > w então
+7.                dp[i][w] := dp[i-1][w]
+8.            senão
+9.                dp[i][w] := máximo(dp[i-1][w], dp[i-1][w-obj.peso] + obj.valor)
+10.           fim-se
+11.           imprimir("Subproblema dp[", i, "][", w, "] = ", dp[i][w])
+12.       fim-para
+13.   fim-para
+14.   w := capacidade
+15.   itensSelecionados := lista vazia
+16.   para i de n até 1 com passo -1 faça
+17.       se dp[i][w] ≠ dp[i-1][w] então
+18.           obj := objetos[i-1]
+19.           adicionar obj.nome à itensSelecionados
+20.           w := w - obj.peso
+21.       fim-se
+22.   fim-para
+23.   imprimir("Objetos a serem colocados na mochila para maximizar o valor:")
+24.   para cada nome em itensSelecionados faça
+25.       imprimir("- ", nome)
+26.   fim-para
+27.   imprimir("Valor máximo obtido: ", dp[n][capacidade])
+fim-procedimento

@@ -1,0 +1,31 @@
+procedimento calcularDistanciaTotal(cidades)
+1.     distancia := 0
+2.     para i de 0 até tamanho(cidades) - 2
+3.          distancia := distancia + calcularDistancia(cidades[i], cidades[i+1])
+4.     fim-para
+5.     distancia := distancia + calcularDistancia(cidades[tamanho(cidades)-1], cidades[0])
+6.     retornar distancia
+fim-procedimento
+
+procedimento gerarPermutacoes(cidades, inicio, melhorCaminho, melhorDistancia)
+1.     se inicio = tamanho(cidades) então
+2.          distanciaAtual := calcularDistanciaTotal(cidades)
+3.          se distanciaAtual < melhorDistancia então
+4.               melhorDistancia := distanciaAtual
+5.               limpar(melhorCaminho)
+6.               adicionar todas as cidades em melhorCaminho
+7.          fim-se
+8.     senao
+9.          para i de inicio até tamanho(cidades) - 1
+10.              trocar(cidades, inicio, i)
+11.              gerarPermutacoes(cidades, inicio + 1, melhorCaminho, melhorDistancia)
+12.              trocar(cidades, inicio, i)  // desfaz a troca
+13.         fim-para
+14.    fim-se
+fim-procedimento
+
+procedimento trocar(cidades, i, j)
+1.     temp := cidades[i]
+2.     cidades[i] := cidades[j]
+3.     cidades[j] := temp
+fim-procedimento
