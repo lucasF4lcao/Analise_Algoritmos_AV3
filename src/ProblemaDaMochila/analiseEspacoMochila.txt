@@ -1,0 +1,24 @@
+   resolverMochila(int capacidade, List<Objeto> objetos) {						iterações	espaco por iteracao		
+1.    int n = objetos.size();										1		O(1)
+2.    int[][] dp = new int[n + 1][capacidade + 1];							1		O(n*c)
+3.    for (int i = 1; i <= n; i++) {									O(n*c)		O(1)
+4.        Objeto obj = objetos.get(i - 1);								O(n*c)		O(1)
+5.        for (int w = 0; w <= capacidade; w++) {							O(n*c)		O(1)	
+6.            if (obj.peso > w) {									O(n*c)		O(1)	
+7.                dp[i][w] = dp[i - 1][w];								O(n*c)		O(1)
+8.            } else {											
+9.                dp[i][w] = Math.max(dp[i - 1][w], dp[i - 1][w - obj.peso] + obj.valor);}		O(n*c)		O(1)	
+10.           System.out.printf("Subproblema dp[%d][%d] = %d\n", i, w, dp[i][w]);}}			
+11.   int w = capacidade;										
+12.   List<String> itensSelecionados = new ArrayList<>();						k(dinâmico)	O(k)
+13.   for (int i = n; i > 0 && w > 0; i--) {								O(k)		O(1)										
+14.       if (dp[i][w] != dp[i - 1][w]) {								O(k)		O(1)	
+15.           Objeto obj = objetos.get(i - 1);								O(k)		O(1)	
+16.           itensSelecionados.add(obj.nome);								O(k)		O(1)	
+17.           w -= obj.peso;}}										O(k)		O(1)										
+18.   System.out.println("Objetos a serem colocados na mochila para maximizar o valor:");		
+19.   for (String nome : itensSelecionados) {													
+20.       System.out.println("- " + nome);}								
+21.   System.out.println("Valor máximo obtido: " + dp[n][capacidade]);}					
+
+S(n) = O(1) + O(n*c) + O(1) + O(1) + O(1) + O(1) + O(1) + O(1) + O(k) + O(1) + O(1) + O(1) + O(1) + O(1) = O(n*c)

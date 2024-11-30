@@ -1,0 +1,19 @@
+   escolherArquivos(int capacidadePendrive, ArrayList<ArquivoPDF> arquivos) {		iterações	espaço por iteração
+1.    for (int i = 0; i < arquivos.size() - 1; i++) {					O(n)		O(1)
+2.       for (int j = i + 1; j < arquivos.size(); j++) {				O(n^2)		O(1)
+3.            if (arquivos.get(j).relacao() > arquivos.get(i).relacao()) {		
+4.                ArquivoPDF temp = arquivos.get(i);					O(n^2)		O(1)
+5.                arquivos.set(i, arquivos.get(j));					
+6.                arquivos.set(j, temp);}}}						
+7.    int espacoDisponivel = capacidadePendrive;					1		O(1)
+8.    ArrayList<String> arquivosEscolhidos = new ArrayList<>();				k(dinâmico)	O(k)
+9.    for (ArquivoPDF arquivo : arquivos) {						O(n)		O(1)
+10.       if (arquivo.peso <= espacoDisponivel) {					k		O(k)
+11.           arquivosEscolhidos.add(arquivo.nome);					k		O(k)
+12.           espacoDisponivel -= arquivo.peso;						k		O(k)
+13.           System.out.println("Escolhido: " + ...);}}				
+14.   System.out.println("\nArquivos escolhidos para o pendrive:");			
+15.   for (String nome : arquivosEscolhidos) {						k		O(1)
+16.       System.out.println(nome);}}							
+
+S(n) = O(1) + O(1) + O(1) + O(1) + O(k) + O(1) + O(k) + O(k) + O(k) + O(1) = O(n + k), no pior caso ---> (k = n) então: O(n) 
