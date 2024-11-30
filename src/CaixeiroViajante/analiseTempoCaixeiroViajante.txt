@@ -1,0 +1,65 @@
+O custo será o número de comparações
+
+   calcularDistanciaTotal(List<Cidade> cidades) {						custo		vezes		total
+1.    double distancia = 0.0;									0		
+2.    for (int i = 0; i < cidades.size() - 1; i++) {						1		n - 1		1 * (n - 1)
+3.        distancia += cidades.get(i).calcularDistancia(cidades.get(i + 1));}			0		
+4.    distancia += cidades.get(cidades.size() - 1).calcularDistancia(cidades.get(0));		0
+5.    return distancia;}									0
+
+T(n) = n - 1 = O(n) 
+
+=========================================================================================================================================================================================
+
+   gerarPermutacoes(List<Cidade> cidades, int inicio, List<Cidade> melhorCaminho, double melhorDistancia) {	
+1.     if (inicio == cidades.size()) {							
+2.        double distanciaAtual = calcularDistanciaTotal(cidades);						
+3.        if (distanciaAtual < melhorDistancia) {									
+4.            melhorDistancia = distanciaAtual;										
+5.            melhorCaminho.clear();											
+6.            melhorCaminho.addAll(cidades);}										
+7.    } else {														
+8.        for (int i = inicio; i < cidades.size(); i++) {								
+9.            trocar(cidades, inicio, i);										
+10.           gerarPermutacoes(cidades, inicio + 1, melhorCaminho, melhorDistancia);					
+11.           trocar(cidades, inicio, i);}}}					
+
+T(n) = n * T(n − 1) + O(n)
+T(n − 1) = (n − 1) * T(n − 2) + O(n − 1)
+assim:
+T(n) = n * ((n − 1) * T(n − 2) + O(n − 1)) + O(n)
+T(n) = O(n * (n − 1) * (n − 2) ... 1) + O(n)
+
+A função gerarPermutacoes é chamada n! vezes (para cada permutação).
+Para cada chamada de gerarPermutacoes, faz uma chamada para calcularDistanciaTotal(cidades), que tem custo O(n).
+Portanto, o custo total será: T(n) = n! * O(n) ---> T(n) = O(n * n!)
+				
+=========================================================================================================================================================================================
+
+O custo será o número de comparações
+
+   exibirMelhorCaminho(List<Cidade> melhorCaminho, double menorDistancia) {							custo		vezes		total
+1.     System.out.println("Melhor caminho: ");											0
+2.     for (Cidade cidade : melhorCaminho) {											1		n		1 * n
+3.          System.out.print(cidade + " -> ");}											0
+4.      System.out.println(melhorCaminho.get(0));										0
+5.      System.out.println("Distância total: " + menorDistancia);								0
+6.      for (int i = 0; i < melhorCaminho.size(); i++) {									1		n		1 * n
+7.          Cidade atual = melhorCaminho.get(i);										0
+8.          Cidade proxima = melhorCaminho.get((i + 1) % melhorCaminho.size());							0
+
+T(n) = n + n = O(n)
+
+=========================================================================================================================================================================================
+
+  main() {
+1.    List<Cidade> cidades = new ArrayList<>();				O(1)
+2.    List<Cidade> melhorCaminho = new ArrayList<>();			O(1)
+3.    double menorDistancia = Double.MAX_VALUE;				O(1)
+4.    gerarPermutacoes(cidades, 0, melhorCaminho, menorDistancia)	O(n * n!)
+5.    exibirMelhorCaminho(melhorCaminho, menorDistancia);}		O(n)
+
+T(n) = O(1) + O(1) + O(1) + O(n * n!) + O(n) = O(n * n!)
+
+Conclusão:
+O complexidade de tempo do algoritmo é de O(n * n!)
