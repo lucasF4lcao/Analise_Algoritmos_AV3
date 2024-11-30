@@ -1,0 +1,17 @@
+procedimento selecionarArquivosPendrive(capacidadePendrive, arquivos)
+1.     para cada arquivo em arquivos
+2.          calcular relacao := paginas / peso
+3.     ordenar arquivos pela relacao em ordem decrescente
+4.     espacoDisponivel := capacidadePendrive
+5.     arquivosEscolhidos := lista vazia
+6.     para cada arquivo em arquivos
+7.          se arquivo.peso <= espacoDisponivel então
+8.               adicionar arquivo à arquivosEscolhidos
+9.               espacoDisponivel := espacoDisponivel - arquivo.peso
+10.	    fim-se
+11.    fim-para
+12.    imprimir("Arquivos escolhidos:")
+13.    para cada arquivo em arquivosEscolhidos
+14.         imprimir(arquivo.nome)
+15.    fim-para
+fim-procedimento
