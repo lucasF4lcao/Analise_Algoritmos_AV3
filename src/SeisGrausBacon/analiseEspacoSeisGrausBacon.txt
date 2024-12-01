@@ -1,0 +1,24 @@
+n = número de filmes
+k = número de atores por filme
+
+  def montar_grafo(creditos):					iterações	espaço por iteração
+1.    conexoes = defaultdict(set)				n		O(k)
+2.    index = 0							1		O(1)
+3.    while index < len(creditos):				
+4.        linha = creditos.iloc[index]				n		O(1)
+5.        elenco = eval(linha['cast'])				n		O(k)
+6.        nomes = [pessoa['name'] for pessoa in elenco]		n		O(k)
+7.        for i in range(len(nomes)):				
+8.            for j in range(i + 1, len(nomes)):		
+9.                ator1 = nomes[i]				O(k^2)		O(1)
+10.               ator2 = nomes[j]				O(k^2)		O(1)
+11.               conexoes[ator1].add(ator2)			O(k^2)		O(1)
+12.               conexoes[ator2].add(ator1)			O(k^2)		O(1)
+13.       index += 1						n		O(1)
+14.   return conexoes						
+
+S(n) = O(n*k^2) ---> No pior caso, considerando 
+		     k atores por filme e n filmes, 
+		     o espaço total seria, já que
+		     para cada par de atores em um 
+		     filme tem uma conexão bidirecional.

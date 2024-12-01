@@ -1,0 +1,22 @@
+O custo será o número de comparações
+
+n = número de filmes
+m = número médio de atores por filme
+
+  def montar_grafo(creditos):					custo		vezes		total
+1.    conexoes = defaultdict(set)				0
+2.    index = 0							0
+3.    while index < len(creditos):				1		n		1*n
+4.        linha = creditos.iloc[index]				0
+5.        elenco = eval(linha['cast'])				0
+6.        nomes = [pessoa['name'] for pessoa in elenco]		1		n*m		1*n*m
+7.        for i in range(len(nomes)):				1		n*m		1*n*m
+8.            for j in range(i + 1, len(nomes)):		1		n*m*m		1*n*m*m
+9.                ator1 = nomes[i]				0
+10.               ator2 = nomes[j]				0
+11.               conexoes[ator1].add(ator2)			0
+12.               conexoes[ator2].add(ator1)			0
+13.       index += 1						0
+14.   return conexoes						0
+
+T(n) = n + n*m + n*m + n*m*m = n + 2(n*m) + n*m^2 ----> O(n*m^2)

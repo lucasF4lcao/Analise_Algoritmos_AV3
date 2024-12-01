@@ -1,0 +1,36 @@
+procedimento montarGrafo(creditos)
+1.    conexoes := dicionário vazio de conjuntos
+2.    para cada linha em creditos
+3.        elenco := avaliar(linha['cast'])
+4.        nomes := lista de nomes dos atores em elenco
+5.        para cada i de 0 até len(nomes) - 1
+6.            para cada j de i + 1 até len(nomes)
+7.                ator1 := nomes[i]
+8.                ator2 := nomes[j]
+9.                conexoes[ator1] := adicionar ator2 em conexoes[ator1]
+10.               conexoes[ator2] := adicionar ator1 em conexoes[ator2]
+11.    fim-para
+12.    retornar conexoes
+fim-procedimento
+
+procedimento buscarCaminho(conexoes, inicio, fim)
+1.    se inicio não está em conexoes ou fim não está em conexoes então
+2.        retornar None
+3.    fim-se
+4.    visitados := conjunto vazio
+5.    fila := deque com o par (inicio, [inicio])
+6.    para cada elemento em fila até o tamanho de conexoes
+7.        se fila está vazia então
+8.            parar
+9.        fim-se
+10.       atual, caminho := retirar primeiro da fila
+11.       se atual == fim então
+12.           retornar caminho
+13.       fim-se
+14.       adicionar atual em visitados
+15.       para cada vizinho em conexoes[atual]
+16.           se vizinho não está em visitados então
+17.               adicionar (vizinho, caminho + [vizinho]) em fila
+18.       fim-para
+19.    retornar None
+fim-procedimento
