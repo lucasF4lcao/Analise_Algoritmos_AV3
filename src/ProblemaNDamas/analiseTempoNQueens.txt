@@ -1,0 +1,40 @@
+O custo será o número de comparações
+
+  printBoard(int board[][]) {						custo		vezes		total
+1.    for (int i = 0; i < N; i++) {					1		n		1 * n
+2.        for (int j = 0; j < N; j++) {					1		n * n		1 * n * n
+3.            System.out.print((board[i][j] == 1 ? "Q " : ". "));}	1		n * n		1 * n * n
+4.        System.out.println();}					0
+5.    System.out.println();}						0
+
+T(n) = n + n^2 + n^2 = O(n^2)
+
+============================================================================================================================
+
+  static boolean solveNQueens(int board[][], int col) {
+1.    if (col >= N) {
+2.        printBoard(board);
+3.        return true;}
+4.    boolean foundSolution = false;
+5.    for (int i = 0; i < N; i++) {
+6.        if (isSafe(board, i, col)) {
+7.            board[i][col] = 1;
+8.            foundSolution = solveNQueens(board, col + 1) || foundSolution;
+9.            board[i][col] = 0;}}
+10.   return foundSolution;}
+
+T(n) = n * T(n-1) + O(n)
+
+Substituindo T(n-1):
+
+T(n) = n * [(n-1) * T(n-2) + O(n-1)] + O(n)
+
+Expandindo mais:
+
+T(n) = n * (n-1) * T(n-2) + n * O(n-1) + O(n)
+
+Continuando para k interações:
+
+T(n) = n * (n-1) * (n-2) ... T(1) + soma de O(n)
+
+Resultado: T(n) = O(n!)

@@ -1,0 +1,18 @@
+  solveNQueens(int board[][], int col) {					iterações	espaco por iteração
+1.    if (col >= N) {								1		O(1)
+2.        printBoard(board);							1		O(1)
+3.        return true;}								1		O(1)
+4.    boolean foundSolution = false;						O(n)		O(n)
+5.    for (int i = 0; i < N; i++) {						O(n)		O(1)
+6.        if (isSafe(board, i, col)) {						O(n^2)		O(1)
+7.            board[i][col] = 1;						O(n)		O(1)
+8.            foundSolution = solveNQueens(board, col + 1) || foundSolution;	O(n)		O(n)
+9.            board[i][col] = 0;}}						O(n)		O(1)	
+10.   return foundSolution;}
+
+
+  main() {
+1.    int board[][] = new int[N][N];						O(1)		O(n^2)				
+
+
+S(n) = O(1) + O(1) + O(1) + O(n) + O(1) + O(1) + O(1) + O(n) + O(1) + O(n^2) ---> O(n^2)

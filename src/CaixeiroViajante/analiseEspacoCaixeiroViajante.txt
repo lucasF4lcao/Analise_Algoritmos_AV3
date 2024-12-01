@@ -1,0 +1,43 @@
+   gerarPermutacoes(List<Cidade> cidades, int inicio, List<Cidade> melhorCaminho, double melhorDistancia) {	iterações	espaço por iteração	
+1.     if (inicio == cidades.size()) {										O(n!)		O(1)				
+2.        double distanciaAtual = calcularDistanciaTotal(cidades);						O(n!)		O(1)
+3.        if (distanciaAtual < melhorDistancia) {								O(n!)		O(1)
+4.            melhorDistancia = distanciaAtual;									O(n!)		O(1)
+5.            melhorCaminho.clear();										O(n!)		O(1)
+6.            melhorCaminho.addAll(cidades);}									O(n!)		O(1)
+7.    } else {														
+8.        for (int i = inicio; i < cidades.size(); i++) {								
+9.            trocar(cidades, inicio, i);										
+10.           gerarPermutacoes(cidades, inicio + 1, melhorCaminho, melhorDistancia);					
+11.           trocar(cidades, inicio, i);}}}					
+
+S(n) = O(n!) ---> O número de chamadas recursivas é O(n!) no pior caso por causa da permutação.
+
+=========================================================================================================================================================================================
+
+   exibirMelhorCaminho(List<Cidade> melhorCaminho, double menorDistancia) {							iterações	espaço por iteração
+1.     System.out.println("Melhor caminho: ");											
+2.     for (Cidade cidade : melhorCaminho) {											O(n)		O(1)							
+3.          System.out.print(cidade + " -> ");}											O(n)
+4.      System.out.println(melhorCaminho.get(0));										
+5.      System.out.println("Distância total: " + menorDistancia);								
+6.      for (int i = 0; i < melhorCaminho.size(); i++) {									O(n)		O(1)
+7.          Cidade atual = melhorCaminho.get(i);										O(n)		O(1)
+8.          Cidade proxima = melhorCaminho.get((i + 1) % melhorCaminho.size());							O(n)		O(1)
+9.          System.out.println("Distância de " + atual + " para " + proxima + ": " + atual.calcularDistancia(proxima));}}
+
+S(n) = O(n)
+
+=========================================================================================================================================================================================
+
+  main() {								iterações	espaço por iteração
+1.    List<Cidade> cidades = new ArrayList<>();				1		O(n)
+2.    List<Cidade> melhorCaminho = new ArrayList<>();			1		O(n)
+3.    double menorDistancia = Double.MAX_VALUE;				1		O(n)
+4.    gerarPermutacoes(cidades, 0, melhorCaminho, menorDistancia)	O(n!)		O(n!)
+5.    exibirMelhorCaminho(melhorCaminho, menorDistancia);}		O(n)		O(n)
+
+S(n) = O(n!)
+
+Conclusão:
+O complexidade de espaço do algoritmo é de O(n!)
