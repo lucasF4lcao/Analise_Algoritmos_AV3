@@ -19,11 +19,14 @@ class Cidade {
 
     @Override
     public String toString() {
-        return "CaixeiroViajante.Cidade " + id;
+        return "Cidade " + id;
     }
 }
 
 public class CaixeiroViajante {
+
+    private static double menorDistancia = Double.MAX_VALUE;
+    private static List<Cidade> melhorCaminho = new ArrayList<>();
 
     private static double calcularDistanciaTotal(List<Cidade> cidades) {
         double distancia = 0.0;
@@ -34,18 +37,18 @@ public class CaixeiroViajante {
         return distancia;
     }
 
-    private static void gerarPermutacoes(List<Cidade> cidades, int inicio, List<Cidade> melhorCaminho, double melhorDistancia) {
+    private static void gerarPermutacoes(List<Cidade> cidades, int inicio) {
         if (inicio == cidades.size()) {
             double distanciaAtual = calcularDistanciaTotal(cidades);
-            if (distanciaAtual < melhorDistancia) {
-                melhorDistancia = distanciaAtual;
+            if (distanciaAtual < menorDistancia) {
+                menorDistancia = distanciaAtual;
                 melhorCaminho.clear();
                 melhorCaminho.addAll(cidades);
             }
         } else {
             for (int i = inicio; i < cidades.size(); i++) {
                 trocar(cidades, inicio, i);
-                gerarPermutacoes(cidades, inicio + 1, melhorCaminho, melhorDistancia);
+                gerarPermutacoes(cidades, inicio + 1);
                 trocar(cidades, inicio, i);
             }
         }
@@ -57,7 +60,7 @@ public class CaixeiroViajante {
         cidades.set(j, temp);
     }
 
-    private static void exibirMelhorCaminho(List<Cidade> melhorCaminho, double menorDistancia) {
+    private static void exibirMelhorCaminho() {
         System.out.println("Melhor caminho: ");
         for (Cidade cidade : melhorCaminho) {
             System.out.print(cidade + " -> ");
@@ -75,22 +78,17 @@ public class CaixeiroViajante {
 
     public static void main(String[] args) {
         List<Cidade> cidades = new ArrayList<>();
-        cidades.add(new Cidade(1, 1, 1));
-        cidades.add(new Cidade(2, 4, 1));
-        cidades.add(new Cidade(3, 4, 5));
-        cidades.add(new Cidade(4, 1, 5));
-        cidades.add(new Cidade(5, 2, 3));
-        cidades.add(new Cidade(6, 5, 3));
-        cidades.add(new Cidade(7, 2, 6));
-        cidades.add(new Cidade(8, 6, 2));
-        cidades.add(new Cidade(9, 7, 7));
-        cidades.add(new Cidade(10, 3, 4));
+        cidades.add(new Cidade(1, 2, 3));
+        cidades.add(new Cidade(2, 9, 9));
+        cidades.add(new Cidade(3, 6, 4));
+        cidades.add(new Cidade(4, 8, 9));
+        cidades.add(new Cidade(5, 9, 7));
 
-        List<Cidade> melhorCaminho = new ArrayList<>();
-        double menorDistancia = Double.MAX_VALUE;
 
-        gerarPermutacoes(cidades, 0, melhorCaminho, menorDistancia);
+        menorDistancia = Double.MAX_VALUE;
+        melhorCaminho.clear();
 
-        exibirMelhorCaminho(melhorCaminho, menorDistancia);
+        gerarPermutacoes(cidades, 0);
+        exibirMelhorCaminho();
     }
 }
